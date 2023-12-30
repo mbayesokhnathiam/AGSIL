@@ -1,21 +1,12 @@
 import 'package:ajiledakarv/auth/begin.dart';
-import 'package:ajiledakarv/auth/login.dart';
-import 'package:ajiledakarv/common/color.dart';
-import 'package:ajiledakarv/common/input.dart';
 import 'package:ajiledakarv/models/Country.dart';
 import 'package:ajiledakarv/models/Region.dart';
-import 'package:ajiledakarv/models/activite_model.dart';
 import 'package:ajiledakarv/roviders/notifier.dart';
-import 'package:ajiledakarv/screen/chat/chat.dart';
-import 'package:ajiledakarv/screen/chat/chatBoot.dart';
 import 'package:ajiledakarv/screen/explorer/detail_city_explore.dart';
 import 'package:ajiledakarv/services/apiService.dart';
-import 'package:ajiledakarv/services/connectivityService.dart';
-import 'package:ajiledakarv/utils/HexaColor.dart';
 import 'package:ajiledakarv/utils/const.dart';
 import 'package:ajiledakarv/widgets/loader.dart';
 
-import 'package:country_list_pick/country_list_pick.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -113,7 +104,6 @@ class _ExplorePageState extends State<ExplorePage> {
 
   @override
   Widget build(BuildContext context) {
-    var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
     final DNotifier dNotifier = Provider.of<DNotifier>(context);
     initNotifier(dNotifier);
@@ -245,11 +235,11 @@ class _ExplorePageState extends State<ExplorePage> {
                                   border: InputBorder.none,
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide.none,
-                                    borderRadius: BorderRadius.circular(10.0),
+                                    borderRadius: BorderRadius.circular(25.0),
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide.none,
-                                    borderRadius: BorderRadius.circular(10.0),
+                                    borderRadius: BorderRadius.circular(25.0),
                                   ),
                                   filled: true,
                                   fillColor: Colors.black,
@@ -302,7 +292,7 @@ class _ExplorePageState extends State<ExplorePage> {
                                   await getRegionsByCountries();
                                 },
                               ))),
-                      Container(
+                      /*Container(
                         child: Row(
                           children: [
                             Container(
@@ -323,7 +313,7 @@ class _ExplorePageState extends State<ExplorePage> {
                             )
                           ],
                         ),
-                      ),
+                      ),*/
                     ],
                   ),
                 ),
@@ -367,7 +357,7 @@ class _ExplorePageState extends State<ExplorePage> {
                     shrinkWrap: true,
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
+                      crossAxisCount: 2,
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 20,
                       childAspectRatio: 0.7,
@@ -430,7 +420,7 @@ class _ExplorePageState extends State<ExplorePage> {
                                 //second parameter is top to down
                               ),
                             ],
-                            color: Colors.green,
+                            color: Colors.orangeAccent,
                             borderRadius: BorderRadius.circular(10),
                             image: DecorationImage(
                                 image: NetworkImage(

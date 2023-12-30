@@ -1,23 +1,13 @@
-import 'package:ajiledakarv/common/color.dart';
-import 'package:ajiledakarv/common/input.dart';
 import 'package:ajiledakarv/models/Categorie.dart';
-import 'package:ajiledakarv/models/Country.dart';
 import 'package:ajiledakarv/models/Event.dart';
 import 'package:ajiledakarv/models/Region.dart';
 import 'package:ajiledakarv/models/Status.dart';
-import 'package:ajiledakarv/models/activite_model.dart';
-import 'package:ajiledakarv/models/evenement_modelL.dart';
-import 'package:ajiledakarv/screen/Status/StatusBar.dart';
-import 'package:ajiledakarv/screen/explorer/explore_detail.dart';
 import 'package:ajiledakarv/screen/results/show_detail.dart';
 import 'package:ajiledakarv/services/apiService.dart';
-import 'package:ajiledakarv/utils/HexaColor.dart';
 import 'package:ajiledakarv/utils/const.dart';
 import 'package:ajiledakarv/widgets/loader.dart';
-import 'package:country_list_pick/country_list_pick.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../models/place_model.dart';
 
@@ -32,7 +22,6 @@ class Resultat extends StatefulWidget {
 }
 
 class _DetailCityState extends State<Resultat> {
-  final _regionKey = GlobalKey<FormFieldState>();
   List <PlaceModel> places =[];
   bool _loading=false;
 
@@ -60,7 +49,6 @@ setState(() {
   _loading=true;
 });
     var response;
-    List msg =[];
     await  ApiService().getData("places/search/${widget.idType}/${widget.idZone}").then((value) =>{
       response=value
 
@@ -86,7 +74,6 @@ setState(() {
       _loading=true;
     });
     var response;
-    List msg =[];
     await  ApiService().getData("places/show/${id}").then((value) =>{
       response=value
 
@@ -140,7 +127,7 @@ setState(() {
               child: GridView.builder(
                 shrinkWrap: true,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
+                  crossAxisCount: 2,
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 20,
                   childAspectRatio: 0.7,
@@ -195,7 +182,7 @@ setState(() {
                                   Text(
                                     places[index].name,
                                     style: GoogleFonts.inter(
-                                        fontSize: 8,
+                                        fontSize: 12,
                                         fontWeight: FontWeight.bold),
                                   )),
                                   Icon(
@@ -219,7 +206,7 @@ setState(() {
                             //second parameter is top to down
                           ),
                         ],
-                        color: Colors.green,
+                        color: Colors.orangeAccent,
                         borderRadius: BorderRadius.circular(10),
                         image: DecorationImage(
                             image:   NetworkImage(

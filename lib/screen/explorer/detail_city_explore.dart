@@ -1,22 +1,16 @@
 import 'package:ajiledakarv/common/color.dart';
-import 'package:ajiledakarv/common/input.dart';
 import 'package:ajiledakarv/models/Categorie.dart';
 import 'package:ajiledakarv/models/Country.dart';
 import 'package:ajiledakarv/models/Event.dart';
 import 'package:ajiledakarv/models/Region.dart';
 import 'package:ajiledakarv/models/Status.dart';
-import 'package:ajiledakarv/models/activite_model.dart';
-import 'package:ajiledakarv/models/evenement_modelL.dart';
-import 'package:ajiledakarv/screen/Status/StatusBar.dart';
 import 'package:ajiledakarv/screen/chat/chat.dart';
 import 'package:ajiledakarv/screen/explorer/explore_detail.dart';
 import 'package:ajiledakarv/services/apiService.dart';
 import 'package:ajiledakarv/services/urlLuncher.dart';
-import 'package:ajiledakarv/utils/HexaColor.dart';
 import 'package:ajiledakarv/utils/const.dart';
 import 'package:ajiledakarv/widgets/loader.dart';
-import 'package:ajiledakarv/widgets/slider/cardSlider_opp.dart';
-import 'package:country_list_pick/country_list_pick.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:date_picker_plus/date_picker_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -54,6 +48,7 @@ class _DetailCityState extends State<DetailCity> {
   CategorieModel? currenteCategorie;
 
   int current = 0;
+
   // List<RegionModel> regions=[];
   // String country_d_code="";
   String? userName;
@@ -65,7 +60,6 @@ class _DetailCityState extends State<DetailCity> {
       region = widget.region;
       userName = prefs.getString(APIConstants.CONNECTED_USER_NAME);
     });
-    var regionResponse;
     var catResponse;
     prefs.getString(APIConstants.COUNTRY_CODE);
     var response;
@@ -91,7 +85,6 @@ class _DetailCityState extends State<DetailCity> {
     await getStories();
     /////inti datas///
     await getEvents();
-
   }
 
   getEvents() async {
@@ -116,17 +109,14 @@ class _DetailCityState extends State<DetailCity> {
     print("koko story/list/${widget.region!.id}");
     print("story/list/${region!.id}");
     var response;
-  //  story/list/${region!.id}
-    await ApiService()
-        .getData("pubs")
-        .then((value) => {response = value});
+    //  story/list/${region!.id}
+    await ApiService().getData("pubs").then((value) => {response = value});
 
     print("slides");
 
     print(response);
     setState(() {
-
-  slides=response["data"];
+      slides = response["data"];
       //status = StatusModel.fromJsonList(response["data"]);
     });
   }
@@ -261,7 +251,7 @@ class _DetailCityState extends State<DetailCity> {
                         //   key: _formKey,
                         //  autovalidateMode: _autoValidate,
                         child: Container(
-                            width: 170,
+                            width: 180,
                             //  ,
                             decoration: BoxDecoration(
                               // color:   Colors.grey.shade600,
@@ -273,22 +263,24 @@ class _DetailCityState extends State<DetailCity> {
                             ),
                             child: DropdownButtonFormField(
                               style: TextStyle(
-                                color: Colors.white, // couleur souhaitée
-                                // autres styles de texte ici
-                              ),
-                              dropdownColor:
-                                  Colors.black, // couleur de fond souhaitée
+                                  color: Colors.white,
+                                  overflow:
+                                      TextOverflow.ellipsis // couleur souhaitée
+                                  // autres styles de texte ici
+                                  ),
+                              dropdownColor: Colors.black,
+                              // couleur de fond souhaitée
                               key: _regionKey,
                               decoration: InputDecoration(
                                 //  border: InputBorder.none,
                                 border: InputBorder.none,
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide.none,
-                                  borderRadius: BorderRadius.circular(10.0),
+                                  borderRadius: BorderRadius.circular(45.0),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide.none,
-                                  borderRadius: BorderRadius.circular(10.0),
+                                  borderRadius: BorderRadius.circular(45.0),
                                 ),
                                 filled: true,
                                 fillColor: Colors.black,
@@ -297,7 +289,7 @@ class _DetailCityState extends State<DetailCity> {
                                 floatingLabelBehavior:
                                     FloatingLabelBehavior.never,
                                 contentPadding:
-                                    EdgeInsets.fromLTRB(10, 0, 5, 10),
+                                    EdgeInsets.fromLTRB(10, 0, 5, 0),
                                 labelText: 'Region',
                                 hintText: 'Choisir une region',
                               ),
@@ -306,6 +298,7 @@ class _DetailCityState extends State<DetailCity> {
                               icon: const Icon(
                                 Icons.keyboard_arrow_down,
                                 color: Colors.white,
+                                size: 20,
                               ),
                               /*  validator: FormBuilderValidators.compose([
                                                                   FormBuilderValidators.required(
@@ -322,6 +315,7 @@ class _DetailCityState extends State<DetailCity> {
                                       const Icon(
                                         Icons.location_on,
                                         color: Colors.white,
+                                        size: 20,
                                       ),
                                       /*   Image.network(
                               "${APIConstants.IMG_BASE_URL}${items.image}",
@@ -400,59 +394,56 @@ class _DetailCityState extends State<DetailCity> {
                 ),
                 if (slides.length > 0)
                   Container(
-                    alignment: Alignment.centerLeft,
-                      height: 100,
-                    width:  MediaQuery.of(context).size.width,
-                    child:  SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: [
-                          for (var pub in slides)
-                        Row(
-                          children: [
-                            InkWell(
-                                onTap: (){
-                                  UrlLauncher().launchUniversalLinkIos(Uri.parse(pub["link"]));
-
-                                },
-                                child:
-
-                                Container(
-                                  width:  300,
-                                  height: 100,
+                      alignment: Alignment.centerLeft,
+                      width: MediaQuery.of(context).size.width,
+                      child: CarouselSlider(
+                        options: CarouselOptions(
+                          autoPlay: true,
+                          height: 180,
+                          enlargeCenterPage: true
+                        ),
+                        items: slides
+                            .map((pub) => Container(
+                          //margin: EdgeInsets.symmetric(horizontal: 4),
                                   decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.only(
-                                      topRight: Radius.circular(10.0),  // BorderRadius pour la partie supérieure droite
-                                      topLeft: Radius.circular(10.0),  // BorderRadius pour la partie inférieure droite
-                                      bottomRight: Radius.circular(10.0),
-                                      bottomLeft: Radius.circular(10.0),
-                                    ),
-                                    image: DecorationImage(
-                                      image: NetworkImage(
-                                         /// "https://www.ideas-factory.net/wp-content/uploads/sites/34/2020/06/evenement-public-scaled.jpg"
-                                         "${APIConstants.IMG_BASE_URL}/${pub["image"]}"
-
-                                      ),
-                                      fit: BoxFit.fill,
-                                    ),
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Colors.white
                                   ),
+                                  child: InkWell(
+                                      onTap: () {
+                                        UrlLauncher().launchUniversalLinkIos(
+                                            Uri.parse(pub["link"]));
+                                      },
+                                      child: Container(
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        height: 120,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.only(
+                                            topRight: Radius.circular(10.0),
+                                            // BorderRadius pour la partie supérieure droite
+                                            topLeft: Radius.circular(10.0),
+                                            // BorderRadius pour la partie inférieure droite
+                                            bottomRight: Radius.circular(10.0),
+                                            bottomLeft: Radius.circular(10.0),
+                                          ),
+                                          image: DecorationImage(
+                                            image: NetworkImage(
 
+                                                /// "https://www.ideas-factory.net/wp-content/uploads/sites/34/2020/06/evenement-public-scaled.jpg"
+                                                "${APIConstants.IMG_BASE_URL}/${pub["image"]}"),
+                                            fit: BoxFit.fill,
+                                          ),
+                                        ),
+                                      )),
+                                ))
+                            .toList(),
+                      )
 
-
-                                )),
-                            SizedBox(width: 5,),
-                          ],
-                        )
-                        ],
+                      //CardSlider_opp(cardItems: slides,),
                       ),
-                    )
 
-
-
-                    //CardSlider_opp(cardItems: slides,),
-                  ),
-
-                 // StatusBar(statuses: status, regionId: region!.id.toString()),
+                // StatusBar(statuses: status, regionId: region!.id.toString()),
 
                 /* SizedBox(
               height: 20,
@@ -534,7 +525,7 @@ class _DetailCityState extends State<DetailCity> {
                           shrinkWrap: true,
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3,
+                            crossAxisCount: 2,
                             crossAxisSpacing: 10,
                             mainAxisSpacing: 20,
                             childAspectRatio: 0.7,
@@ -595,7 +586,7 @@ class _DetailCityState extends State<DetailCity> {
                                                 child: Text(
                                               events[index].event_title,
                                               style: GoogleFonts.inter(
-                                                  fontSize: 8,
+                                                  fontSize: 13,
                                                   fontWeight: FontWeight.bold),
                                             )),
                                             Icon(
@@ -620,7 +611,7 @@ class _DetailCityState extends State<DetailCity> {
                                       //second parameter is top to down
                                     ),
                                   ],
-                                  color: Colors.green,
+                                  color: Colors.orangeAccent,
                                   borderRadius: BorderRadius.circular(10),
                                   image: DecorationImage(
                                       image: NetworkImage(

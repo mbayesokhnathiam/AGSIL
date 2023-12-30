@@ -1,18 +1,12 @@
-import 'package:ajiledakarv/common/color.dart';
-import 'package:ajiledakarv/common/input.dart';
 import 'package:ajiledakarv/models/Country.dart';
 import 'package:ajiledakarv/models/Region.dart';
 import 'package:ajiledakarv/models/Trasnport.dart';
-import 'package:ajiledakarv/models/activite_model.dart';
-import 'package:ajiledakarv/models/deplacement_model.dart';
 import 'package:ajiledakarv/roviders/notifier.dart';
 import 'package:ajiledakarv/services/apiService.dart';
-import 'package:ajiledakarv/services/connectivityService.dart';
 import 'package:ajiledakarv/utils/const.dart';
 import 'package:ajiledakarv/widgets/ItemModal.dart';
 import 'package:ajiledakarv/widgets/loader.dart';
 
-import 'package:country_list_pick/country_list_pick.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -30,7 +24,6 @@ class Deplacement  extends StatefulWidget {
 class _DeplacementState extends State<Deplacement > {
 
 
-  final _countryKey = GlobalKey<FormFieldState>();
   bool _loading=true;
   final _regionKey = GlobalKey<FormFieldState>();
   String? userName;
@@ -228,11 +221,11 @@ class _DeplacementState extends State<Deplacement > {
                             border: InputBorder.none,
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide.none,
-                              borderRadius: BorderRadius.circular(10.0),
+                              borderRadius: BorderRadius.circular(25.0),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide.none,
-                              borderRadius: BorderRadius.circular(10.0),
+                              borderRadius: BorderRadius.circular(25.0),
                             ),
                             filled: true,
                             fillColor: Colors.black,

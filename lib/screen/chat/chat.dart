@@ -1,18 +1,10 @@
-import 'package:ajiledakarv/bottom_navigation_bar.dart';
-import 'package:ajiledakarv/common/color.dart';
 import 'package:ajiledakarv/models/Region.dart';
 import 'package:ajiledakarv/models/chat_model.dart';
-import 'package:ajiledakarv/screen/explorer/explore.dart';
 import 'package:ajiledakarv/screen/results/resultats.dart';
 
-import 'package:ajiledakarv/service/sizeconfig.dart';
 import 'package:ajiledakarv/widgets/msg.dart';
 import 'package:ajiledakarv/widgets/userMsg.dart';
-import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:grouped_list/grouped_list.dart';
-import 'package:intl/intl.dart';
 
 import '../../services/apiService.dart';
 
@@ -35,7 +27,6 @@ class _ChatPageState extends State<ChatPage> {
   List places = [];
   List zones = [];
 
-  bool _isSelected = false;
   String selectedcentre = "";
   String selectedzone = "";
   String selectedplace = "";
@@ -45,7 +36,6 @@ class _ChatPageState extends State<ChatPage> {
   getMess(path, stp) async {
     print(path);
     var response;
-    List msg = [];
     await ApiService().getData(path).then((value) => {response = value});
     setState(() {
       step = step + 1;
@@ -108,22 +98,7 @@ class _ChatPageState extends State<ChatPage> {
     ),*/
   ];
 
-  final TextEditingController _textController = TextEditingController();
 
-  void _sendMessage(String text) {
-    /*  setState(() {
-      _textController.clear();
-      _messages.add(Message(
-        text: 'Je suis un chatbot. Désolé, je ne sais pas comment vous aider pour cela.',
-        isUser: false,
-      ));
-    });
-
-      // simulate chatbot response after a short delay
-      Future.delayed(Duration(seconds: 1), () {
-        _messages.add(Message(text: text, isUser: true));
-    });*/
-  }
   userMessage(id, msg) async {
     /* var   path="";
 
@@ -169,21 +144,15 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
   Widget build(BuildContext context) {
-    var blockSizeHorizontal = MediaQuery.of(context).size.width / 100;
     var blockSizeVertical = MediaQuery.of(context).size.height / 100;
-    double tailleListe;
     print("tailleListe");
     //print(tailleListe!);
     // print(snapshot.data.length ~/ 3);
 
     if (centres.length ~/ 3 == 0) {
-      tailleListe = blockSizeVertical! * 8;
     } else if (centres.length ~/ 3 <= 1) {
-      tailleListe = (centres.length ~/ 3).toDouble() * blockSizeVertical * 11;
     } else if (centres.length ~/ 3 == 2) {
-      tailleListe = (centres.length ~/ 3).toDouble() * blockSizeVertical * 8;
     } else {
-      tailleListe = (centres.length ~/ 3).toDouble() * blockSizeVertical * 5;
     }
     return Scaffold(
       appBar: AppBar(
@@ -216,20 +185,9 @@ class _ChatPageState extends State<ChatPage> {
             /////type grid
             if (centres.length > 0)
               Container(
-                margin: EdgeInsets.only(top: 15, left: blockSizeHorizontal * 5),
-                padding: EdgeInsets.all(blockSizeVertical * 3),
-                width: blockSizeHorizontal! * 90,
-                //height: tailleListe,
-                //color: Colors.white,
+                margin: EdgeInsets.symmetric(vertical: 15, horizontal: 16),
+                padding: EdgeInsets.all(blockSizeVertical),
                 decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 0.5,
-                        blurRadius: 2,
-                        offset: Offset(0, 1), // changes position of shadow
-                      ),
-                    ],
                     color: Colors.grey.shade200,
                     borderRadius: BorderRadius.all(Radius.circular(20))),
                 child: Wrap(
@@ -285,7 +243,7 @@ class _ChatPageState extends State<ChatPage> {
                                       selectedcentre == centres[index]["type"]
                                           ? Colors.white
                                           : Colors.black,
-                                  fontSize: 12,
+                                  fontSize: 13,
                                 )),
                           ),
                         ));
@@ -366,7 +324,7 @@ class _ChatPageState extends State<ChatPage> {
               ),
             if (selectedcentre != "")
               Msg(
-                msg: 'Vous avez choisis ${selectedcentre}',
+                msg: 'Vous avez choisi ${selectedcentre}',
                 msg1: 'Choisissez une zone',
               ),
 
@@ -374,23 +332,9 @@ class _ChatPageState extends State<ChatPage> {
             if (zones.length != 0 && selectedcentre != "")
               /////type grid
               Container(
-                margin: EdgeInsets.only(top: 15, left: blockSizeHorizontal * 5),
-                padding: EdgeInsets.all(blockSizeVertical * 3),
-                width: blockSizeHorizontal! * 90,
-                //height: tailleListe,
-                //color: Colors.white,
+                margin: EdgeInsets.symmetric(vertical: 15, horizontal: 16),
+                padding: EdgeInsets.all(blockSizeVertical),
                 decoration: BoxDecoration(
-                    /*  boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            spreadRadius: 0.5,
-                            blurRadius: 2,
-                            offset: Offset(
-                                0, 1), // changes position of shadow
-                          ),
-
-
-                        ],*/
                     color: Colors.grey.shade200,
                     borderRadius: BorderRadius.all(Radius.circular(20))),
                 child: Wrap(
@@ -526,9 +470,8 @@ class _ChatPageState extends State<ChatPage> {
                     );
                   },
                   child: Container(
-                      margin: EdgeInsets.only(top: 30, left: 50),
-                      height: blockSizeVertical! * 5,
-                      width: blockSizeHorizontal! * 20,
+                      margin: EdgeInsets.only(top: 30, left: 60,right: 16),
+                      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 16),
                       decoration: BoxDecoration(
                           color: Color.fromARGB(255, 114, 110, 110),
                           boxShadow: [

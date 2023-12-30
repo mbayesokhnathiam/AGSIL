@@ -1,21 +1,15 @@
-import 'package:ajiledakarv/common/color.dart';
-import 'package:ajiledakarv/common/input.dart';
 import 'package:ajiledakarv/models/Adress.dart';
 import 'package:ajiledakarv/models/Country.dart';
 import 'package:ajiledakarv/models/Region.dart';
-import 'package:ajiledakarv/models/call_model.dart';
 import 'package:ajiledakarv/roviders/notifier.dart';
 import 'package:ajiledakarv/services/apiService.dart';
-import 'package:ajiledakarv/services/connectivityService.dart';
 import 'package:ajiledakarv/utils/const.dart';
 import 'package:ajiledakarv/widgets/loader.dart';
-import 'package:country_list_pick/country_list_pick.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:open_share_pro/open.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class NumeroUtil extends StatefulWidget {
   final  CountryModel country;
@@ -29,7 +23,6 @@ class _NumeroUtilState extends State<NumeroUtil> {
   //final ConnectivityService connectivityService = ConnectivityService();
 
 
-  final _countryKey = GlobalKey<FormFieldState>();
   bool _loading=false;
   final _regionKey = GlobalKey<FormFieldState>();
   String? userName;
@@ -140,7 +133,6 @@ if(!_loading){
   @override
   Widget build(BuildContext context) {
     getCountry(context);
-    var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
     return    Loader(
         loadIng: _loading,
@@ -225,11 +217,11 @@ if(!_loading){
                               border: InputBorder.none,
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide.none,
-                                borderRadius: BorderRadius.circular(10.0),
+                                borderRadius: BorderRadius.circular(25.0),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide.none,
-                                borderRadius: BorderRadius.circular(10.0),
+                                borderRadius: BorderRadius.circular(25.0),
                               ),
                               filled: true,
                               fillColor: Colors.black,

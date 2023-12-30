@@ -57,6 +57,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.2"
+  carousel_slider:
+    dependency: "direct main"
+    description:
+      name: carousel_slider
+      sha256: "9c695cc963bf1d04a47bd6021f68befce8970bcd61d24938e1fb0918cf5d9c42"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.2.1"
   characters:
     dependency: transitive
     description:
@@ -214,6 +222,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.3.0"
+  flutter_country_code:
+    dependency: "direct main"
+    description:
+      name: flutter_country_code
+      sha256: "0c8c7349b2afca369dd69a0166fe267fbeeabba7f445a76815fa468db018fe82"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.2"
   flutter_launcher_icons:
     dependency: "direct main"
     description:
@@ -230,6 +246,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.1"
+  flutter_sim_country_code:
+    dependency: transitive
+    description:
+      name: flutter_sim_country_code
+      sha256: fd6233ad01b811f5d2845c5b1c18120488417f2882a84df602daa65324e8371e
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.2"
   flutter_spinkit:
     dependency: "direct main"
     description:
@@ -512,6 +536,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.1.0"
+  phone_number:
+    dependency: transitive
+    description:
+      name: phone_number
+      sha256: "42cac4ca32146d83cc8a9c8432dc2d901d40334f0e2b02a3ec7d8237b80ebec3"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   platform:
     dependency: transitive
     description:

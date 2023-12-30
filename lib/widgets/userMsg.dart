@@ -1,4 +1,3 @@
-import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
 
 class UserMsg extends StatelessWidget {
@@ -20,32 +19,22 @@ class UserMsg extends StatelessWidget {
               children: [
 
                 Container(
-                  width: blockSizeHorizontal * 60,
-                  height: blockSizeVertical * 6,
+                  padding: EdgeInsets.all(14),
                   margin: EdgeInsets.only(
-                      top: 30),
+                      top: 10),
                   decoration: BoxDecoration(
                     color: Colors.orangeAccent,
-                    /*  boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.1),
-                            spreadRadius: 1,
-                            blurRadius: 1,
-                            offset: Offset(
-                                0, 3), // changes position of shadow
-                          ),
-                        ],*/
                     borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        bottomLeft: Radius.circular(20),
-                        bottomRight: Radius.circular(20)),
+                        topLeft: Radius.circular(10),
+                        bottomLeft: Radius.circular(10),
+                        bottomRight: Radius.circular(10)),
                   ),
                   child: Center(
                       child: Text(msg,
                           style: TextStyle(
                               fontSize:
                               blockSizeHorizontal *
-                                  3.0,
+                                  3.8,
                               color: Colors.white))),
                 ),
                 Container(
@@ -53,23 +42,8 @@ class UserMsg extends StatelessWidget {
                   width: blockSizeHorizontal * 15,
                   margin: EdgeInsets.all(
                       10),
-                  decoration: BoxDecoration(
-                    borderRadius:
-                    BorderRadius.all(Radius.circular(100)),
-                    image: DecorationImage(
-                      image: AssetImage('assets/avatar.png'),
-                      fit: BoxFit.fill,
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.3),
-                        spreadRadius: 1,
-                        blurRadius: 1,
-                        offset: Offset(
-                            0, 0), // changes position of shadow
-                      ),
-                    ],
-                  ),
+                  padding: EdgeInsets.all(6),
+                  child: Image.asset('assets/avatar.png'),
                 ),
               ],
             ),
