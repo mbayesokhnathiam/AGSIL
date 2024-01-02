@@ -34,7 +34,7 @@ class _bnvState extends State<bnv> {
             ExplorePage(country: widget.country_d_code!,),
             NumeroUtil(country: widget.country_d_code!,),
             Deplacement(country: widget.country_d_code!,),
-            MonCompte(),
+            MonCompte(country: widget.country_d_code!,),
           ],
         ),
       ),

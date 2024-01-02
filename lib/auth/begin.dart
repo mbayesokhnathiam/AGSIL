@@ -218,7 +218,7 @@ class _beginState extends State<Begin> {
                           GestureDetector(
                             onTap: () {
                               print("oklm");
-                              if (countrie != null)
+                              //if (countrie != null)
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -256,7 +256,7 @@ class _beginState extends State<Begin> {
                                 TextButton(
                                   onPressed: () => () {
                                     // if(countrie!=null)
-                                    if (countrie != null)
+                                    //if (countrie != null)
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(

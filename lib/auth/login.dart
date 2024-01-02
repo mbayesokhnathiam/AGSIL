@@ -4,7 +4,6 @@ import 'package:ajiledakarv/bottom_navigation_bar.dart';
 import 'package:ajiledakarv/common/color.dart';
 import 'package:ajiledakarv/common/input.dart';
 import 'package:ajiledakarv/models/Country.dart';
-import 'package:ajiledakarv/screen/explorer/explore.dart';
 import 'package:ajiledakarv/services/Auth/apiUser.dart';
 import 'package:ajiledakarv/utils/const.dart';
 import 'package:ajiledakarv/widgets/loader.dart';
@@ -81,7 +80,7 @@ class _LoginState extends State<Login> {
         print(response);
         MotionToast.error(
             title:  Text("Erreur"),
-            description:  Text(response["error"][0]!=null?response["error"][0].toString():"Email ou mot de passe incorrecte")
+            description:  Text(response["error"][0]!=null?response["error"][0].toString():"Email ou mot de passe incorrect")
         ).show(context);
         setState(() {
           _loading=false;
@@ -134,7 +133,6 @@ class _LoginState extends State<Login> {
   }
   @override
   Widget build(BuildContext context) {
-     var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Loader(
@@ -305,7 +303,7 @@ class _LoginState extends State<Login> {
                    SizedBox(
                       height: w * 0.05 ,
                     ),
-                    Text("je n'ai pas encore de compte !"),
+                    Text("Je n'ai pas encore de compte !"),
                     SizedBox(
                       height: 15,
                     ),

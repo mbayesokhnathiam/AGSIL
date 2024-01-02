@@ -45,15 +45,18 @@ class ItemModal extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 16.0),
-                Text(
-                  description,
-                  style: TextStyle(fontSize: 16.0),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Text(
+                    description,
+                    style: TextStyle(fontSize: 16.0),
+                  ),
                 ),
                 SizedBox(height: 16.0),
 
 
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Column(
                       children: [
@@ -62,7 +65,7 @@ class ItemModal extends StatelessWidget {
                          // _callNumber(phoneNumber);
                         }, icon: Icon(Icons.call,color: Colors.orange,size: 40,)),
                         SizedBox(height: 5,),
-                        Text("Appelez")
+                        Text("Appelez",textAlign: TextAlign.center,)
                       ],
                     ),
                     SizedBox(width: 10,),
@@ -75,7 +78,7 @@ class ItemModal extends StatelessWidget {
                               body: "");
                         }, icon: Icon(Icons.mail,color: Colors.orange,size: 40,)),
                         SizedBox(height: 5,),
-                        Text("Mail")
+                        Text("Mail",textAlign: TextAlign.center)
                       ],
                     ),
                     SizedBox(width: 10,),
@@ -86,7 +89,7 @@ class ItemModal extends StatelessWidget {
 
                         }, icon: Icon(Icons.date_range,color: Colors.orange,size: 40,)),
                         SizedBox(height: 5,),
-                        Text("Reservez",)
+                        Text("Reservez",textAlign: TextAlign.center)
                       ],
                     )
 

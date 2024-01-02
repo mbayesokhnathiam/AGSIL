@@ -1,15 +1,18 @@
 import 'package:ajiledakarv/auth/begin.dart';
 import 'package:ajiledakarv/auth/login.dart';
+import 'package:ajiledakarv/models/Country.dart';
 import 'package:ajiledakarv/services/apiService.dart';
 import 'package:ajiledakarv/utils/const.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:panara_dialogs/panara_dialogs.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:share_plus/share_plus.dart';
 
 class MonCompte extends StatefulWidget {
-  const MonCompte({super.key});
+  final CountryModel country;
+  const MonCompte({super.key, required this.country});
 
   @override
   State<MonCompte> createState() => _MonCompteState();
@@ -17,6 +20,7 @@ class MonCompte extends StatefulWidget {
 
 class _MonCompteState extends State<MonCompte> {
   String? userName;
+
   initData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -35,31 +39,55 @@ class _MonCompteState extends State<MonCompte> {
     return Scaffold(
       body: userName == null
           ? Center(
-              child: GestureDetector(
-              onTap: () async {
-                SharedPreferences prefs = await SharedPreferences.getInstance();
-                prefs.clear();
+              child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset(
+                  "assets/images/connect.svg",
+                  width: 200,
+                ),
+                SizedBox(
+                  height: 50,
+                ),
+                Text(
+                  "Pour accéder à votre compte,\nveuillez vous connecter.",
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.inter(
+                      color: Colors.black,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600),
+                ),
+                SizedBox(
+                  height: 50,
+                ),
+                GestureDetector(
+                  onTap: () async {
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    prefs.clear();
 
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Begin()));
-              },
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.7,
-                height: 45,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.orangeAccent,
-                ),
-                child: Center(
-                  child: Text(
-                    'Connexion',
-                    style: GoogleFonts.inter(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600),
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Login(country: widget.country)));
+                  },
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.7,
+                    height: 45,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.orangeAccent,
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Connexion',
+                        style: GoogleFonts.inter(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600),
+                      ),
+                    ),
                   ),
-                ),
-              ),
+                )
+              ],
             ))
           : Column(
               mainAxisAlignment: MainAxisAlignment.center,
