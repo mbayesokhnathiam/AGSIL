@@ -274,7 +274,7 @@ if(!_loading){
 
                       )),
 
-                  Container(
+                 /* Container(
                     child: Row(
                       children: [
                         IconButton(
@@ -293,7 +293,7 @@ if(!_loading){
                         )
                       ],
                     ),
-                  )
+                  )*/
                 ],
               ),
              

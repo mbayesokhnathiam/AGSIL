@@ -275,7 +275,7 @@ class _DeplacementState extends State<Deplacement > {
 
 
                     )),
-                Container(
+                /*Container(
                   child: Row(
                     children: [
                       IconButton(
@@ -294,7 +294,7 @@ class _DeplacementState extends State<Deplacement > {
                       )
                     ],
                   ),
-                )
+                )*/
               ],
             ),
             SizedBox(

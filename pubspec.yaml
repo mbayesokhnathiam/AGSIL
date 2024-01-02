@@ -27,7 +27,7 @@ dependencies:
   flutter_rating_bar:
   intl_phone_number_input:
   date_picker_plus:
-  #  flutter_local_notifications:
+  #flutter_local_notifications:
   cached_network_image:
   flutter_spinkit:
   delayed_display:
@@ -35,6 +35,7 @@ dependencies:
   panara_dialogs: ^0.1.4
   flutter_country_code: ^1.2.2
   carousel_slider: ^4.2.1
+  flutter_svg:
 
 
 dev_dependencies:
