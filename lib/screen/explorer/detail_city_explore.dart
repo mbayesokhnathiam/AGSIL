@@ -84,18 +84,26 @@ class _DetailCityState extends State<DetailCity> {
           .setValue(regions.where((e) => e.id == widget.region!.id).first);
     await getStories();
     /////inti datas///
-    await getEvents();
+    await getEvents(date);
   }
 
-  getEvents() async {
+  getEvents(DateTime? date) async {
     setState(() {
       _loading = true;
     });
     var response;
-    await ApiService()
-        .getData(
-            "events/search/inregion/${region!.id}/${categories[current].id}?date=${formatDate(date!, 'yyyy-MM-dd')}")
-        .then((value) => {response = value});
+    if(date==null){
+      await ApiService()
+          .getData(
+          "events/search/inregion/${region!.id}/${categories[current].id}")
+          .then((value) => {response = value});
+    }else{
+      await ApiService()
+          .getData(
+          "events/search/inregion/${region!.id}/${categories[current].id}?date=${formatDate(date, 'yyyy-MM-dd')}")
+          .then((value) => {response = value});
+    }
+
     print(response);
     print("events/search/inregion/${region!.id}/${categories[current].id}");
     print(categories[current].libelle_category);
@@ -131,9 +139,9 @@ class _DetailCityState extends State<DetailCity> {
   @override
   void initState() {
     // TODO: implement initState
-    setState(() {
+    /*setState(() {
       date = DateTime.now();
-    });
+    });*/
     initData();
 
     super.initState();
@@ -334,7 +342,8 @@ class _DetailCityState extends State<DetailCity> {
                                 setState(() {
                                   region = newValue;
                                 });
-                                await getEvents();
+                                date=null;
+                                await getEvents(date);
                               },
                             ))),
                     InkWell(
@@ -368,7 +377,7 @@ class _DetailCityState extends State<DetailCity> {
                               date = date1;
                               _loading = true;
                             });
-                            await getEvents();
+                            await getEvents(date);
                           }
                         },
                         child: Container(
@@ -376,7 +385,7 @@ class _DetailCityState extends State<DetailCity> {
                             children: [
                               date != null
                                   ? Text(formatDate(date!, 'dd/MM/yyyy'))
-                                  : Container(),
+                                  : Text('Filtrer par date'),
                               SizedBox(
                                 width: 5,
                               ),
@@ -472,7 +481,7 @@ class _DetailCityState extends State<DetailCity> {
                             setState(() {
                               current = index;
                             });
-                            await getEvents();
+                            await getEvents(date);
                           },
                           child: AnimatedContainer(
                             duration: const Duration(microseconds: 300),
@@ -566,33 +575,59 @@ class _DetailCityState extends State<DetailCity> {
                                               begin: Alignment.bottomCenter,
                                               end: Alignment.topCenter,
                                             )),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.start,
                                           children: [
-                                            Container(
-                                              height: 30,
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width /
-                                                  20,
-                                              decoration: BoxDecoration(
-                                                  image: DecorationImage(
-                                                image: AssetImage(
-                                                    'assets/images/icond.png'),
-                                              )),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Flexible(
+                                                  child: Row(
+                                                    children: [
+                                                      Container(
+                                                        height: 30,
+                                                        width: MediaQuery.of(context)
+                                                                .size
+                                                                .width /
+                                                            20,
+                                                        decoration: BoxDecoration(
+                                                            image: DecorationImage(
+                                                          image: AssetImage(
+                                                              'assets/images/icond.png'),
+                                                        )),
+                                                      ),
+                                                      Flexible(
+                                                          child: Text(
+                                                        events[index].event_title,
+                                                        style: GoogleFonts.inter(
+                                                            fontSize: 13,
+                                                            fontWeight: FontWeight.bold),
+                                                      )),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Icon(
+                                                  Icons.arrow_forward_ios,
+                                                  size: 12,
+                                                  color: Colors.black,
+                                                )
+                                              ],
                                             ),
-                                            Flexible(
-                                                child: Text(
-                                              events[index].event_title,
-                                              style: GoogleFonts.inter(
-                                                  fontSize: 13,
-                                                  fontWeight: FontWeight.bold),
-                                            )),
-                                            Icon(
-                                              Icons.arrow_forward_ios,
-                                              size: 12,
-                                              color: Colors.black,
+                                            Row(
+                                              children: [
+                                                SizedBox(width: 3,),
+                                                Icon(
+                                                  Icons.date_range,
+                                                  size: 12,
+                                                  color: Colors.orangeAccent,
+                                                ),
+                                                SizedBox(width: 5,),
+                                                Text(formatDate(DateTime.parse(events[index].event_date), 'dd/MM/yyyy'),
+                                                  style: GoogleFonts.inter(
+                                                      fontSize: 13,
+                                                      fontWeight: FontWeight.bold),),
+                                              ],
                                             )
                                           ],
                                         ))

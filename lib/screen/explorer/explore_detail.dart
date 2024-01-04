@@ -138,278 +138,274 @@ class _ExploreDetailState extends State<ExploreDetail> {
               ),
               pinned: true,
             ),
-            SliverToBoxAdapter(
-              child: Column(
-                children: [
-                  Container(
-                    padding: EdgeInsets.symmetric(vertical: 20, horizontal: 16),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            SliverList(delegate: SliverChildListDelegate([
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
+                        Container(
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.event,
+                                color: primary,
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Container(
+                                width:
+                                MediaQuery.of(context).size.width / 2,
+                                child: Text(event.event_title),
+                              )
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        InkWell(
+                            onTap: () {
+                              print(double.parse(
+                                  place.localisation.split(",")[0]));
+                              MapsLauncher.launchCoordinates(
+                                  double.parse(
+                                      place.localisation.split(",")[0]),
+                                  double.parse(
+                                      place.localisation.split(",")[1]));
+                            },
+                            child: Container(
                               child: Row(
                                 children: [
                                   Icon(
-                                    Icons.event,
+                                    Icons.location_on,
                                     color: primary,
                                   ),
                                   SizedBox(
                                     width: 10,
                                   ),
                                   Container(
-                                    width:
-                                        MediaQuery.of(context).size.width / 2,
-                                    child: Text(event.event_title),
-                                  )
+                                      width: MediaQuery.of(context)
+                                          .size
+                                          .width /
+                                          2,
+                                      child: Text(event.event_address))
                                 ],
                               ),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            InkWell(
-                                onTap: () {
-                                  print(double.parse(
-                                      place.localisation.split(",")[0]));
-                                  MapsLauncher.launchCoordinates(
-                                      double.parse(
-                                          place.localisation.split(",")[0]),
-                                      double.parse(
-                                          place.localisation.split(",")[1]));
-                                },
-                                child: Container(
-                                  child: Row(
-                                    children: [
-                                      Icon(
-                                        Icons.location_on,
-                                        color: primary,
-                                      ),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Container(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              2,
-                                          child: Text(event.event_address))
-                                    ],
-                                  ),
-                                )),
-                          ],
-                        ),
-                        Container(
-                          child: Column(
-                            children: [
-                              Text('Notez-ici'),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              IgnorePointer(
-                                  ignoring: token == null,
-                                  child: Row(
-                                    children: [
-                                      RatingBar.builder(
-                                        initialRating: 0,
-                                        minRating: 1,
-                                        direction: Axis.horizontal,
-                                        allowHalfRating: true,
-                                        itemSize: 20,
-                                        // largeur personnalisée pour chaque étoile
+                            )),
+                      ],
+                    ),
+                    Container(
+                      child: Column(
+                        children: [
+                          Text('Notez-ici'),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          IgnorePointer(
+                              ignoring: token == null,
+                              child: Row(
+                                children: [
+                                  RatingBar.builder(
+                                    initialRating: 0,
+                                    minRating: 1,
+                                    direction: Axis.horizontal,
+                                    allowHalfRating: true,
+                                    itemSize: 20,
+                                    // largeur personnalisée pour chaque étoile
 
-                                        itemCount: 5,
-                                        itemPadding: EdgeInsets.symmetric(
-                                            horizontal: 2.0),
-                                        itemBuilder: (context, _) => Icon(
-                                          Icons.star,
-                                          color: Colors.amber,
-                                        ),
-                                        onRatingUpdate: (rating) async {
-                                          await noter(rating);
-                                          print(rating);
-                                          showDialog(
-                                            context: context,
-                                            builder: (BuildContext context) {
-                                              return RatingDialog(
-                                                title: 'Note enregistrée',
-                                                message:
-                                                    'Merci d\'avoir donné votre avis !',
-                                                onOkPressed: () {
-                                                  Navigator.of(context).pop();
-                                                },
-                                              );
+                                    itemCount: 5,
+                                    itemPadding: EdgeInsets.symmetric(
+                                        horizontal: 2.0),
+                                    itemBuilder: (context, _) => Icon(
+                                      Icons.star,
+                                      color: Colors.amber,
+                                    ),
+                                    onRatingUpdate: (rating) async {
+                                      await noter(rating);
+                                      print(rating);
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return RatingDialog(
+                                            title: 'Note enregistrée',
+                                            message:
+                                            'Merci d\'avoir donné votre avis !',
+                                            onOkPressed: () {
+                                              Navigator.of(context).pop();
                                             },
                                           );
                                         },
-                                      )
-                                    ],
-                                  ))
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    child: SingleChildScrollView(
-                      child: Text(
-                        place.description,
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w400, fontSize: 14),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                    child: Column(
-                      //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        InkWell(
-                            onTap: () {
-                              Open.mail(
-                                  toAddress: place.email,
-                                  subject: "",
-                                  body: "");
-                            },
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.mail,
-                                  color: Colors.black87,
-                                  size: 25,
-                                ),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                Text(
-                                  place.email,
-                                  style: TextStyle(fontSize: 14),
-                                )
-                              ],
-                            )),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-
-                            InkWell(
-                              onTap: () {
-                                Open.phone(phoneNumber: event.event_telephone);
-
-                                //   launchCall(event.event_telephone);
-                              },
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.call,
-                                    color: Colors.black87,
-                                    size: 25,
-                                  ),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  Text(
-                                    event.event_telephone,
-                                    style: TextStyle(fontSize: 14),
+                                      );
+                                    },
                                   )
                                 ],
-                              ),
-                            ),
-                          ],
-                        ),
-
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Row(
+                              ))
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                child: SingleChildScrollView(
+                  child: Text(
+                    place.description,
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                        fontWeight: FontWeight.w400, fontSize: 14),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                child: Column(
+                  //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    InkWell(
+                        onTap: () {
+                          Open.mail(
+                              toAddress: place.email,
+                              subject: "",
+                              body: "");
+                        },
+                        child: Row(
                           children: [
                             Icon(
-                              Icons.visibility,
+                              Icons.mail,
                               color: Colors.black87,
                               size: 25,
                             ),
                             SizedBox(
                               width: 5,
                             ),
-                            Text('${place.visit} vues',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w400, fontSize: 14))
+                            Text(
+                              place.email,
+                              style: TextStyle(fontSize: 14),
+                            )
                           ],
+                        )),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+
+                        InkWell(
+                          onTap: () {
+                            Open.phone(phoneNumber: event.event_telephone);
+
+                            //   launchCall(event.event_telephone);
+                          },
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.call,
+                                color: Colors.black87,
+                                size: 25,
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                event.event_telephone,
+                                style: TextStyle(fontSize: 14),
+                              )
+                            ],
+                          ),
                         ),
                       ],
                     ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-                    child: Center(
-                      child: GridView(
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 8,
-                          childAspectRatio: 0.5,
-                        ),
-                        shrinkWrap: true,
-                        padding: EdgeInsets.zero,
-                        children: options.map((option) {
-                          return GestureDetector(
-                            onTap: () async {
-                              // Do something
-                            },
-                            child: Column(
-                              children: [
-                                Container(
-                                  padding: EdgeInsets.all(3),
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: Colors.grey.withOpacity(.4)),
-                                  ),
-                                  child: Icon(
-                                    option.icon == "resto"
-                                        ? Icons.restaurant_menu
-                                        : (option.icon == "wifi"
-                                            ? Icons.wifi
-                                            : (option.icon == "tv"
-                                                ? Icons.tv
-                                                : (option.icon == "space"
-                                                    ? Icons.space_bar_outlined
-                                                    : (option.icon == "piscine"
-                                                        ? Icons.water
-                                                        : Icons
-                                                            .warehouse_outlined)))),
-                                    color: primary,
-                                    size: 30,
-                                  ),
-                                ),
-                                SizedBox(height: 5),
-                                Flexible(
-                                  child: Text(
-                                    option.name,
-                                    textAlign: TextAlign.center,
-                                    style: GoogleFonts.inter(
-                                        color: primary,
-                                        // fontWeight: FontWeight.w,
-                                        fontSize: 10),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                )
-                              ],
-                            ),
-                          );
-                        }).toList(),
-                      ),
+
+                    SizedBox(
+                      height: 10,
                     ),
-                  ),
-                ],
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.visibility,
+                          color: Colors.black87,
+                          size: 25,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text('${place.visit} vues',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w400, fontSize: 14))
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            )
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+                child: Center(
+                  child: GridView(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 8,
+                      childAspectRatio: 0.5,
+                    ),
+                    shrinkWrap: true,
+                    padding: EdgeInsets.zero,
+                    children: options.map((option) {
+                      return GestureDetector(
+                        onTap: () async {
+                          // Do something
+                        },
+                        child: Column(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.all(3),
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: Colors.grey.withOpacity(.4)),
+                              ),
+                              child: Icon(
+                                option.icon == "resto"
+                                    ? Icons.restaurant_menu
+                                    : (option.icon == "wifi"
+                                    ? Icons.wifi
+                                    : (option.icon == "tv"
+                                    ? Icons.tv
+                                    : (option.icon == "space"
+                                    ? Icons.space_bar_outlined
+                                    : (option.icon == "piscine"
+                                    ? Icons.water
+                                    : Icons
+                                    .warehouse_outlined)))),
+                                color: primary,
+                                size: 30,
+                              ),
+                            ),
+                            SizedBox(height: 5),
+                            Flexible(
+                              child: Text(
+                                option.name,
+                                textAlign: TextAlign.center,
+                                style: GoogleFonts.inter(
+                                    color: primary,
+                                    // fontWeight: FontWeight.w,
+                                    fontSize: 10),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 5,
+                            )
+                          ],
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ),
+            ]))
           ],
         ))));
   }
@@ -493,23 +489,22 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
-                Flexible(
-                    child: Padding(
+                Padding(
                   padding: const EdgeInsets.only(left: 20.0),
                   child: SizedBox(
-                    width: MediaQuery.of(context).size.width - 30,
-                    child: Text(
-                      title!,
-                      style: TextStyle(
-                          color: Colors.black87.withOpacity(0.65),
-                          fontSize: 30.5,
-                          fontFamily: "Sofia",
-                          fontWeight: FontWeight.w700),
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
-                    ),
+                width: MediaQuery.of(context).size.width - 30,
+                child: Text(
+                  title!,
+                  style: TextStyle(
+                      color: Colors.black87.withOpacity(0.65),
+                      fontSize: 30.5,
+                      fontFamily: "Sofia",
+                      fontWeight: FontWeight.w700),
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                ),
                   ),
-                )),
+                ),
                 InkWell(
                   onTap: (){
                     MapsLauncher.launchCoordinates(
@@ -518,34 +513,33 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                         double.parse(
                             place!.localisation.split(",")[1]));
                   },
-                  child: Flexible(
-                      child: Padding(
+                  child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     child: Row(
-                      children: <Widget>[
-                        const Icon(
-                          Icons.location_on,
-                          size: 25.0,
-                          color: Colors.black26,
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Flexible(
-                          child: Text(
-                            location!,
-                            style: const TextStyle(
-                                color: Colors.black26,
-                                fontSize: 14.5,
-                                fontFamily: "Popins",
-                                fontWeight: FontWeight.w800),
-                            maxLines: 3,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        )
-                      ],
+                  children: <Widget>[
+                    const Icon(
+                      Icons.location_on,
+                      size: 25.0,
+                      color: Colors.black26,
                     ),
-                  )),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Flexible(
+                      child: Text(
+                        location!,
+                        style: const TextStyle(
+                            color: Colors.black26,
+                            fontSize: 14.5,
+                            fontFamily: "Popins",
+                            fontWeight: FontWeight.w800),
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    )
+                  ],
+                    ),
+                  ),
                 ),
                 const SizedBox(
                   height: 20,
