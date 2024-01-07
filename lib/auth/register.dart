@@ -1,5 +1,3 @@
-import 'package:ajiledakarv/auth/login.dart';
-import 'package:ajiledakarv/bottom_navigation_bar.dart';
 import 'package:ajiledakarv/common/color.dart';
 import 'package:ajiledakarv/common/input.dart';
 import 'package:ajiledakarv/models/Country.dart';
@@ -23,9 +21,9 @@ class _RegisterState extends State<Register> {
   TextEditingController _nomController = TextEditingController();
   TextEditingController _prenomController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
-  TextEditingController _identifiantController = TextEditingController();
+/*  TextEditingController _identifiantController = TextEditingController();
   TextEditingController _telController = TextEditingController();
-  TextEditingController  _passwordController = TextEditingController();
+  */TextEditingController  _passwordController = TextEditingController();
   TextEditingController  _confirmpasswordController = TextEditingController();
   List<CountryModel> countries=[];
   String initialCountry = 'SN';
@@ -42,12 +40,12 @@ bool _loading =false;
      "nom": _nomController.text,
      "prenom": _prenomController.text,
      "email": _emailController.text,
-     "identifiant": _identifiantController.text,
-      "telephone": _telController.text,
+     /*"identifiant": _identifiantController.text,
+      "telephone": _telController.text,*/
       "password":_passwordController.text,
       "profil_id": 2
    };
-   if(_nomController.text=="" || _prenomController.text=="" ||_emailController.text=="" || _identifiantController.text==""|| _telController.text=="" ||_passwordController.text==""){
+   if(_nomController.text=="" || _prenomController.text=="" ||_emailController.text=="" || /*_identifiantController.text==""|| _telController.text=="" ||*/_passwordController.text==""){
      MotionToast.error(
          title:  Text("Erreur"),
          description:  Text("Désolé, mais tous les champs sont obligatoires. Veuillez remplir tous les champs requis pour continuer.")
@@ -113,7 +111,6 @@ if(response["code"]!=200){
   @override
   Widget build(BuildContext context) {
     
-    var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
     return Loader(
 
@@ -139,7 +136,7 @@ if(response["code"]!=200){
                         children: [
                           Icon(Icons.arrow_back_ios,color:Colors.grey),
                           SizedBox(width: 10,),
-                          Text('Creationn de compte',style: TextStyle(color:Colors.grey),)
+                          Text('Creation de compte',style: TextStyle(color:Colors.grey),)
                         ],
                       )
                   ),
@@ -169,8 +166,8 @@ if(response["code"]!=200){
 
                         SufixIcon : Icon(Icons.person),
                         isPassword: false,
-                        hintText: "nom",
-                        labelText: 'nom',
+                        hintText: "Nom",
+                        labelText: 'Nom',
                         textController: _nomController,
 
                     ),
@@ -182,8 +179,8 @@ if(response["code"]!=200){
                         textController:_prenomController,
                         SufixIcon : Icon(Icons.person),
                         isPassword: false,
-                        hintText: "prenom",
-                        labelText: 'prenom'),
+                        hintText: "Prenom",
+                        labelText: 'Prenom'),
 
                     SizedBox(
                       height: w * 0.06,
@@ -192,13 +189,13 @@ if(response["code"]!=200){
                         textController:_emailController,
                         SufixIcon : Icon(Icons.mail),
                         isPassword: false,
-                        hintText: "email",
-                        labelText: 'email'),
-                  
-                     SizedBox(
+                        hintText: "Email",
+                        labelText: 'Email'),
+
+                    /* SizedBox(
                       height: w * 0.06,
                     ),
-                    InternationalPhoneNumberInput(
+     InternationalPhoneNumberInput(
                       inputDecoration: InputDecoration(
                         hintText: 'Numéro de téléphone',
                         border: OutlineInputBorder(
@@ -258,8 +255,8 @@ if(response["code"]!=200){
                         textController:_identifiantController,
                         SufixIcon : Icon(Icons.verified_user),
                         isPassword: false,
-                        hintText: "identifiant",
-                        labelText: 'identifiant'),
+                        hintText: "Identifiant",
+                        labelText: 'Identifiant'),*/
 
                     SizedBox(
                       height: w * 0.06,
